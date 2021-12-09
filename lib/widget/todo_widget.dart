@@ -67,8 +67,7 @@ class TodoWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          // todo.title,
-                          'Automated Testing Script',
+                          todo.title,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.black,
@@ -176,7 +175,7 @@ class TodoWidget extends StatelessWidget {
                         style: TextStyle(fontSize: 12, color: Colors.grey),
                       ),
                       Text(
-                        todo.isDone ? 'Done' : 'Incomplete',
+                        todo.isDone ? 'Complete' : 'Incomplete',
                         style: TextStyle(fontSize: 12, color: Colors.black),
                       ),
                     ],

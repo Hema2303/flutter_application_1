@@ -59,6 +59,7 @@ class TodoFormWidget extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(20)),
         ),
         child: TextFormField(
+          style: TextStyle(fontSize: 14),
           maxLines: 1,
           initialValue: title,
           onChanged: onChangedTitle,
@@ -69,6 +70,7 @@ class TodoFormWidget extends StatelessWidget {
             return null;
           },
           decoration: InputDecoration(
+            hintText: 'Please key-in your To-Do title here',
             border: InputBorder.none,
           ),
         ),
@@ -84,14 +86,18 @@ class TodoFormWidget extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(20)),
         ),
         child: DateTimePicker(
+          style: TextStyle(fontSize: 14),
+
           decoration: InputDecoration(
             border: InputBorder.none,
+            hintText: 'Select Date',
           ),
           dateMask: 'dd MMM yyy',
           inputFormatters: [],
           firstDate: DateTime(2000),
           lastDate: DateTime(2100),
           initialValue: startDate,
+          // hint: 'Select Date',
           onChanged: onChangedStartDate,
           validator: (val) {
             print(val);
@@ -111,10 +117,16 @@ class TodoFormWidget extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(20)),
         ),
         child: DateTimePicker(
+          style: TextStyle(fontSize: 14),
+
           decoration: InputDecoration(
             border: InputBorder.none,
+            hintText: 'Select Date',
           ),
+          icon: Icon(Icons.arrow_drop_down),
+
           dateMask: 'dd MMM yyy',
+          fieldHintText: 'Select Date',
           firstDate: DateTime(2000),
           lastDate: DateTime(2100),
           initialValue: endDate,
