@@ -28,9 +28,10 @@ class _EditTodoPageState extends State<EditTodoPage> {
     super.initState();
 
     if (widget.todo != null) {
-      print('test123' + widget.todo.title.toString());
+      print('test123' + widget.todo.startDate.toString());
 
       title = widget.todo.title;
+
       startDate = widget.todo.startDate;
       endDate = widget.todo.endDate;
       isFirstTime = false;
@@ -98,7 +99,8 @@ class _EditTodoPageState extends State<EditTodoPage> {
     } else {
       final provider = Provider.of<TodosProvider>(context, listen: false);
 
-      provider.updateTodo(widget.todo, title, startDateFormat, endDateFormat,difference.toString());
+      provider.updateTodo(
+          widget.todo, title, startDate, endDate, difference.toString());
 
       Navigator.of(context).pop();
     }
@@ -136,8 +138,8 @@ class _EditTodoPageState extends State<EditTodoPage> {
       final todo = Todo(
         id: DateTime.now().toString(),
         title: title,
-        startDate: startDateFormat,
-        endDate: endDateFormat,
+        startDate: startDate,
+        endDate: endDate,
         timeLeft: difference.toString(),
         createdTime: DateTime.now(),
       );
@@ -153,10 +155,13 @@ class _EditTodoPageState extends State<EditTodoPage> {
         width: double.infinity,
         child: ElevatedButton(
           style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(Colors.white),
+            backgroundColor: MaterialStateProperty.all(Colors.black),
           ),
           onPressed: isFirstTime ? addTodo : saveTodo,
-          child: Text('Save'),
+          child: Text(
+            isFirstTime ? 'Create Now' : 'Save',
+            style: TextStyle(fontSize: 15, color: Colors.white),
+          ),
         ),
       );
 }

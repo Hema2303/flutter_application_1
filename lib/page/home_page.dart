@@ -25,15 +25,18 @@ class _HomePageState extends State<HomePage> {
       body: TodoListWidget(),
       floatingActionButton: FloatingActionButton(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(30),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.orange[700],
         onPressed: () => showDialog(
           context: context,
           builder: (context) => EditTodoPage(),
           barrierDismissible: false,
         ),
-        child: Icon(Icons.add),
+        child: Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
       ),
     );
   }

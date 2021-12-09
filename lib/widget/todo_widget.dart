@@ -1,3 +1,4 @@
+import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/utils.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -15,33 +16,45 @@ class TodoWidget extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => ClipRRect(
-        borderRadius: BorderRadius.circular(16),
-        child: Slidable(
-          actionPane: SlidableDrawerActionPane(),
-          key: Key(todo.id),
-          actions: [
-            IconSlideAction(
-              color: Colors.green,
-              onTap: () => editTodo(context, todo),
-              caption: 'Edit',
-              icon: Icons.edit,
-            )
-          ],
-          secondaryActions: [
-            IconSlideAction(
-              color: Colors.red,
-              caption: 'Delete',
-              onTap: () => deleteTodo(context, todo),
-              icon: Icons.delete,
-            )
-          ],
-          child: buildTodo(context),
-        ),
-      );
+  Widget build(BuildContext context) {
+    print('object123 ' + todo.startDate);
+    DateFormat dateFormat = DateFormat("dd MMM yyy");
 
-  Widget buildTodo(BuildContext context) => GestureDetector(
-        onTap: () => editTodo(context, todo),
+    DateTime dateTime = DateFormat("yyyy-MM-dd").parse(todo.startDate);
+    String startDateFormat = dateFormat.format(dateTime);
+
+    DateTime dateTime1 = DateFormat("yyyy-MM-dd").parse(todo.endDate);
+    String endDateFormat = dateFormat.format(dateTime1);
+
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(16),
+      child: Slidable(
+        actionPane: SlidableDrawerActionPane(),
+        key: Key(todo.id),
+        actions: [
+          IconSlideAction(
+            color: Colors.green,
+            onTap: () => editTodo(context, todo),
+            caption: 'Edit',
+            icon: Icons.edit,
+          )
+        ],
+        secondaryActions: [
+          IconSlideAction(
+            color: Colors.red,
+            caption: 'Delete',
+            onTap: () => deleteTodo(context, todo),
+            icon: Icons.delete,
+          )
+        ],
+        child: buildTodo(context, startDateFormat, endDateFormat),
+      ),
+    );
+  }
+
+  Widget buildTodo(BuildContext context, startDateFormat, endDateFormat) =>
+      GestureDetector(
+        onTap: () => !todo.isDone ? editTodo(context, todo) : null,
         child: Column(
           children: [
             Container(
@@ -55,7 +68,7 @@ class TodoWidget extends StatelessWidget {
                       children: [
                         Text(
                           // todo.title,
-                          'Automated testing Script',
+                          'Automated Testing Script',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.black,
@@ -70,39 +83,72 @@ class TodoWidget extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   'Start Date',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: Colors.grey,
+                                    fontSize: 12,
                                   ),
                                 ),
-                                Text(todo.startDate)
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  startDateFormat,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12,
+                                  ),
+                                )
                               ],
                             ),
                             Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   'End Date',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: Colors.grey,
+                                    fontSize: 12,
                                   ),
                                 ),
-                                Text(todo.endDate)
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  endDateFormat,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12,
+                                  ),
+                                )
                               ],
                             ),
                             Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   'Time Left',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: Colors.grey,
+                                    fontSize: 12,
                                   ),
                                 ),
-                                Text(todo.timeLeft + 'hrs') // Container(
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  todo.timeLeft + 'hrs',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12,
+                                  ),
+                                )
                               ],
                             ),
                           ],
@@ -146,7 +192,6 @@ class TodoWidget extends StatelessWidget {
                         // width: 10,
                         child: Checkbox(
                           activeColor: Theme.of(context).primaryColor,
-                          
                           checkColor: Colors.white,
                           value: todo.isDone,
                           onChanged: (_) {
